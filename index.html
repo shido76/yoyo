@@ -349,48 +349,51 @@
     </script>
   </head>
   <body>
-    <div class="container-fluid" x-data="timer">
-      <div class="card">
-        <div class="card-body">
-          <div class="text-center">
-            <h1 class="text-primary" x-show="currentLevel === null" x-text="startCounter"></h1>
-            <h1 class="text-danger" x-text="currentLevel"></h1>
+    <div class="container-fluid" x-data="timer">      
+      <main class="vh-100">
+        <div class="card h-100">
+          <div class="card-body">
+            <div class="text-center">
+              <h1 class="text-primary" x-show="currentLevel === null" x-text="startCounter"></h1>
+              <h1 class="text-danger" x-text="currentLevel"></h1>
+            </div>
+    
+            <div class="d-grid gap-3">
+              <template x-for="(user, index) in users" :key="user.id">
+                <a 
+                  x-text="user.name"
+                  href="#" 
+                  x-data="player" 
+                  class="btn p-3" 
+                  :class="{ 'btn-danger': stopped , 'btn-success': !stopped }" 
+                  @click.prevent="() => stop(index)" 
+                  @stopall.window="() => stop(index)"
+                  @startall.window="start">
+                </a>
+              </template>
+            </div>
           </div>
   
-          <div class="d-grid gap-2">
-            <template x-for="(user, index) in users" :key="user.id">
-              <a 
-                x-text="user.name"
-                href="#" 
-                x-data="player" 
-                class="btn" 
-                :class="{ 'btn-danger': stopped , 'btn-success': !stopped }" 
-                @click.prevent="() => stop(index)" 
-                @stopall.window="() => stop(index)"
-                @startall.window="start">
-              </a>
-            </template>
+          <div class="card-footer">
+            <a href="#" class="btn btn-lg btn-primary" :class="{ 'disabled': disableStopButton}" @click.prevent="stopAll">STOP</a>
+            <a href="#" class="btn btn-lg btn-success" :class="{ 'disabled': disableStartButton}" @click.prevent="start">START</a>
           </div>
         </div>
-        <div class="card-footer">
-          <a href="#" class="btn btn-lg btn-primary" :class="{ 'disabled': disableStopButton}" @click.prevent="stopAll">STOP</a>
-          <a href="#" class="btn btn-lg btn-success" :class="{ 'disabled': disableStartButton}" @click.prevent="start">START</a>
-        </div>
-      </div>
-
-      <template x-for="user in users">
-        <div class="card mt-3" x-show="user.stopped">
-          <div class="card-body">
-            <h5 class="card-title" x-text="user.name"></h5>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item" x-text="`LEVEL: ${user.level}`"></li>
-              <li class="list-group-item" x-text="`DISTANCE (m): ${user.distance}`"></li>
-              <li class="list-group-item" x-text="`VO2máx (ml/kg/min): ${user.vo2}`"></li>
-              <li class="list-group-item" x-text="`RUNS (20m): ${user.runs}`"></li>
-            </ul>
+  
+        <template x-for="user in users">
+          <div class="card mt-3" x-show="user.stopped">
+            <div class="card-body">
+              <h5 class="card-title" x-text="user.name"></h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" x-text="`LEVEL: ${user.level}`"></li>
+                <li class="list-group-item" x-text="`DISTANCE (m): ${user.distance}`"></li>
+                <li class="list-group-item" x-text="`VO2máx (ml/kg/min): ${user.vo2}`"></li>
+                <li class="list-group-item" x-text="`RUNS (20m): ${user.runs}`"></li>
+              </ul>
+            </div>
           </div>
-        </div>
-      </template>
+        </template>
+      </main>
     </div>
   </body>
 </html>
