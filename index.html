@@ -287,12 +287,11 @@
                 let audio = new Audio(`audio/level-${this.currentLevel}.mp3`)
                 audio.play()
 
-                this.counter++
                 console.log(changeDuration(), this.currentLevel)
                 this.executeTimerId = setTimeout(execute, changeDuration())
               } else {
-                this.stopAll()
                 this.currentLevel = 'Finish'
+                this.stopAll()
                 audio = new Audio('audio/finish.mp3')
                 audio.play()
                 
@@ -301,6 +300,7 @@
                   audio.play()  
                 }, 2000)
               }
+              this.counter++
             }
 
             this.counterTimerId = setIntervalN(n => {
@@ -332,10 +332,14 @@
           },
           save(index) {
             if (!this.users[index]['stopped']) {
-              this.users[index]['level'] = this.currentLevel
-              this.users[index]['distance'] = this.levels[this.currentLevel]['distance']
-              this.users[index]['vo2'] = this.levels[this.currentLevel]['vo2']
-              this.users[index]['runs'] = this.levels[this.currentLevel]['runs']
+              // always save previous level
+              const counter = (this.counter === 1 || this.currentLevel === 'Finish') ? this.counter - 1 : this.counter - 2
+              const currentLevel = Object.keys(this.levels)[counter]
+
+              this.users[index]['level'] = currentLevel
+              this.users[index]['distance'] = this.levels[currentLevel]['distance']
+              this.users[index]['vo2'] = this.levels[currentLevel]['vo2']
+              this.users[index]['runs'] = this.levels[currentLevel]['runs']
               this.users[index]['stopped'] = true
               console.log(this.users[index])
             }
