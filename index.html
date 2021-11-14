@@ -12,11 +12,11 @@
           counterTimerId: null,
           counter: 0,
           users: [
-            { name: 'FABIO', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
-            { name: 'FAUSTO', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
-            { name: 'FLAVIO', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
-            { name: 'FILIPE', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
-            { name: 'FERNANDO', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
+            { id: 1, name: 'FABIO', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
+            { id: 2, name: 'FAUSTO', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
+            { id: 3, name: 'FLAVIO', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
+            { id: 4, name: 'FILIPE', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
+            { id: 5, name: 'FERNANDO', level: 0, distance: 0, vo2: 0, runs: 0, stopped: false },
           ],
           levels: {
                 '1.1': { duration: 9000, distance: 20, vo2: 0, runs: 0, }, 
@@ -358,11 +358,18 @@
           </div>
   
           <div class="d-grid gap-2">
-            <a href="#" x-data="player" class="btn" :class="{ 'btn-danger': stopped , 'btn-success': !stopped }" @click.prevent="() => stop(0)" @stopall.window="() => stop(0)" @startall.window="start">FABIO</a>
-            <a href="#" x-data="player" class="btn" :class="{ 'btn-danger': stopped , 'btn-success': !stopped }" @click.prevent="() => stop(1)" @stopall.window="() => stop(1)" @startall.window="start">FAUSTO</a>
-            <a href="#" x-data="player" class="btn" :class="{ 'btn-danger': stopped , 'btn-success': !stopped }" @click.prevent="() => stop(2)" @stopall.window="() => stop(2)" @startall.window="start">FLAVIO</a>
-            <a href="#" x-data="player" class="btn" :class="{ 'btn-danger': stopped , 'btn-success': !stopped }" @click.prevent="() => stop(3)" @stopall.window="() => stop(3)" @startall.window="start">FILIPE</a>
-            <a href="#" x-data="player" class="btn" :class="{ 'btn-danger': stopped , 'btn-success': !stopped }" @click.prevent="() => stop(4)" @stopall.window="() => stop(4)" @startall.window="start">FERNANDO</a>
+            <template x-for="(user, index) in users" :key="user.id">
+              <a 
+                x-text="user.name"
+                href="#" 
+                x-data="player" 
+                class="btn" 
+                :class="{ 'btn-danger': stopped , 'btn-success': !stopped }" 
+                @click.prevent="() => stop(index)" 
+                @stopall.window="() => stop(index)"
+                @startall.window="start">
+              </a>
+            </template>
           </div>
         </div>
         <div class="card-footer">
