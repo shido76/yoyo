@@ -42,7 +42,7 @@
                   x-data="player" 
                   class="btn p-3" 
                   :class="{ 'btn-danger': stopped , 'btn-success': !stopped }" 
-                  @click.prevent="() => stop(index)" 
+                  @click.prevent="() => toggle(index)" 
                   @stopall.window="() => stop(index)"
                   @startall.window="start">
                 </a>
@@ -64,7 +64,7 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item" x-text="`LEVEL: ${user.level}`"></li>
               <li class="list-group-item" x-text="`DISTANCE (m): ${user.distance}`"></li>
-              <li class="list-group-item" x-text="`VO2máx (ml/kg/min): ${user.vo2}`"></li>
+              <li class="list-group-item" x-text="`VO2max (ml/kg/min): ${user.vo2}`"></li>
               <li class="list-group-item" x-text="`RUNS (20m): ${user.runs}`"></li>
             </ul>
           </div>

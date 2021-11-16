@@ -315,8 +315,13 @@ document.addEventListener('alpine:init', () => {
   
   Alpine.data('player', () => ({
     stopped: false,
-    toggle() {
+    toggle(index) {
+      if (!this.currentLevel) return
       this.stopped = !this.stopped
+      if (this.stopped) {
+        this.users[index]['stopped'] = false
+        this.save(index)
+      }
     },
     start() {
       this.stopped = false
