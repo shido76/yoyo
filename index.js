@@ -1,3 +1,14 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/sw.js')
+    .then(serviceWorker => {
+      console.log('Service Worker registered: ' + serviceWorker)
+    })
+    .catch(error => {
+      console.log('Error registering the Service Worker: ' + error)
+    })
+}
+
 document.addEventListener('alpine:init', () => {
   Alpine.data('timer', () => ({
     executeTimerId: null,
@@ -347,3 +358,4 @@ document.addEventListener('alpine:init', () => {
     },
   }))
 })
+
