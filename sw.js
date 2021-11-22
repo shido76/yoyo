@@ -1,4 +1,4 @@
-const CACHE_NAME = 'V1'
+const CACHE_NAME = 'V3'
 const STATIC_CACHE_URLS = [
   '/', 
   '/alpine.js',
@@ -245,8 +245,12 @@ const AUDIOS = [
 self.addEventListener('install', event => {
   console.log('Service Worker installing.')
   event.waitUntil(
-    caches.open(CACHE_NAME)
-    .then(cache => cache.addAll(STATIC_CACHE_URLS.concat(AUDIOS.map( audio => `audio/level-${audio}.mp3` ))))  
+    (async self => {
+      const cache = await caches.open(CACHE_NAME)
+      console.log('Service Worker: Caching Files', cache)
+      await cache.addAll(STATIC_CACHE_URLS.concat(AUDIOS.map( audio => `audio/level-${audio}.mp3` )))
+      self.skipWaiting()
+    })(self)
   )
 })
 
@@ -275,13 +279,6 @@ self.addEventListener('activate', event => {
       }
 
       const audioStore = transaction.objectStore('audios')
-
-      // AUDIOS.forEach(audio => {
-      //   let dbOpRequest = audioStore.add(`level-${audio}.mp3`)
-      //   dbOpRequest.onsuccess = op => {
-      //     console.log(op.target.result)
-      //   }  
-      // })
     }
 
     request.onupgradeneeded = e => {
