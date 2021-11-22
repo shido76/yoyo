@@ -1,8 +1,8 @@
 const CACHE_NAME = 'V2'
 const STATIC_CACHE_URLS = [
   '/', 
-  'alpine.js',
-  'index.js',
+  '/alpine.js',
+  '/index.js',
   '/audio/pi.m4a',
   '/audio/pi-last.m4a',
   '/assets/apple-touch-icon.png',
@@ -11,7 +11,7 @@ const STATIC_CACHE_URLS = [
   '/assets/safari-pinned-tab.svg',
   '/assets/android-chrome-192x192.png',
   '/assets/android-chrome-512x512.png',
-  '/manifest.json',
+  '/site.webmanifest',
   '/audio/finish.mp3',
   '/audio/end-yoyo.mp3',
 ]
