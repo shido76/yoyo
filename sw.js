@@ -1,4 +1,4 @@
-const CACHE_NAME = 'V3'
+const CACHE_NAME = 'V1'
 const STATIC_CACHE_URLS = [
   '/', 
   '/alpine.js',

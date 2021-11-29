@@ -281,6 +281,13 @@ document.addEventListener('alpine:init', () => {
       this.disableStopButton = false
       this.users.forEach(user => user.stopped = false)
 
+      // const worker = new Worker('worker.js')
+
+      // worker.addEventListener('message', function (e) {
+      //   //console.log('web worker returned', e.data)
+      //   this.executeTimerId = e.data
+      // })
+
       // repeat interval for repetitions times
       const setIntervalN = (callback, delay, repetitions) => {
         let n = 1
@@ -297,7 +304,7 @@ document.addEventListener('alpine:init', () => {
 
       const changeDuration = _ => this.levels[this.currentLevel]['duration']
 
-      const execute = () => {
+      const execute = _ => {
         if (this.counter < Object.keys(this.levels).length) {
           this.currentLevel = Object.keys(this.levels)[this.counter]
 
